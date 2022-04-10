@@ -11,6 +11,7 @@ class Guest extends Model
 
     public $fillable = [
         'name',
+        'last_name',
         'plus_one',
         'plus_one_name',
         'coming',

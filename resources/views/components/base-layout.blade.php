@@ -2,10 +2,10 @@
 <html class="no-js" lang="de">
 
 <x-head></x-head>
-<body>
+<body class="h-screen px-6 bg-gradient-to-b from-purple to-orange">
     <x-nav></x-nav>
         <main>
-            {{$slot}}
+            {{$content}}
         </main>
     <x-footer></x-footer>
     <script src={{ mix('js/app.js') }}></script>

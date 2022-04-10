@@ -13,7 +13,7 @@ class BaseLayout extends Component
      */
     public function __construct()
     {
-        //
+
     }
 
     /**

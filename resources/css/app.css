@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.toggle-checkbox:not(:checked) {
+    @apply right-0 border-orange focus:border-orange hover:border-orange;
+}
+.toggle-checkbox:checked {
+    @apply border-green focus:border-green hover:border-green;
+}
+.toggle-checkbox:not(:checked) + .toggle-label {
+    @apply bg-orange;
+}

@@ -17,6 +17,8 @@ module.exports = {
             "gray-dark": "#273444",
             gray: "#8492a6",
             "gray-light": "#d3dce6",
+            white: 'white',
+            black: 'black'
         },
         fontFamily: {
             sans: ["Graphik", "sans-serif"],
@@ -32,4 +34,7 @@ module.exports = {
             },
         },
     },
+    plugins: [
+        require('@tailwindcss/forms'),
+    ],
 };

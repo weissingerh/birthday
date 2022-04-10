@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GuestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('create');
+});
+Route::prefix('guest')->group(function(){
+    Route::get('{guest}', [GuestController::class, 'show']);
+    Route::post('update/{guest}', [GuestController::class, 'update']);
 });

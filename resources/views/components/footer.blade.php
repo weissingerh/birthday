@@ -1,3 +1,3 @@
-<footer class="bg-green w-full">
+<footer class="w-full">
     Made with 🧃 in Hietzing 👩🏻
 </footer>
