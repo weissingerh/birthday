@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('guests', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('plus_one_name')->nullable();
+            $table->boolean('plus_one');
+            $table->boolean('coming')->nullable();
+            $table->text('alcohol');
             $table->timestamps();
         });
     }
