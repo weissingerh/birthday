@@ -7,9 +7,6 @@
         <form method="post" action="/guest/update/{{$guest->id}}" class="text-white" x-data="{coming: {{$guest->coming}}, plus_one : {{$guest->plus_one}}, plus_one_name: '{{$guest->plus_one_name}}'}">
             @csrf
             <div class="my-8">
-                {{-- <input type="radio" name="coming" id="true" value="true" class="my-2 form-radio text-purple"/> <label class="" for="true">Ja, ich komme zur Feier!</label><br>
-                <input type="radio" name="coming" id="false" value="false" class="my-2 form-radio text-purple"/> <label class="" for="false">Nein, ich komme nicht 👹</label><br> --}}
-
                 <label for="coming" class="text-sm text-white">Ja, ich komme zur Feier! </label>
                 <div class="relative inline-block w-20 mr-2 align-middle transition duration-200 ease-in select-none">
                     <input type="checkbox" name="coming" id="coming" class="absolute w-8 h-8 text-white bg-white border-4 rounded-full appearance-none cursor-pointer border-green lock toggle-checkbox focus:border-none" x-bind:checked="coming === 1" x-model="coming"/>

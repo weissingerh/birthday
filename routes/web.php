@@ -15,9 +15,11 @@ use App\Http\Controllers\GuestController;
 */
 
 Route::get('/', function () {
-    return view('create');
+    return view('welcome');
 });
 Route::prefix('guest')->group(function(){
     Route::get('{guest}', [GuestController::class, 'show']);
     Route::post('update/{guest}', [GuestController::class, 'update']);
+    Route::get('draw/{guest}', [GuestController::class, 'draw'])->name('guest.draw');
+    Route::post('draw/{guest}', [GuestController::class, 'saveDrawing'])->name('guest.draw.save');
 });
