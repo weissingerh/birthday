@@ -15,6 +15,11 @@ class Guest extends Model
         'plus_one',
         'plus_one_name',
         'coming',
-        'alcohol'
+        'alcohol',
     ];
+
+    public function scopeIsComing($query)
+    {
+        $query->where('coming', 1);
+    }
 }

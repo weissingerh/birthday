@@ -38,10 +38,13 @@ class GuestController extends Controller
     public function saveDrawing(Request $request, Guest $guest)
     {
         $drawing = $request['drawing'];
-
         Storage::disk('local')->put($guest->id . "/test.svg", $drawing);
+        return redirect()->route('guest.thanks', [$guest->id]);
+    }
 
-        return redirect('/');
+    public function thanks(Guest $guest)
+    {
+        return view('guest.thanks')->with('guest', $guest);
     }
 
 }

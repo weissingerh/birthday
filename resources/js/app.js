@@ -3,22 +3,26 @@ global.$ = global.jQuery = require("jquery");
 
 import { fabric } from "fabric";
 
+if(document.getElementById('canvas-container')){
 var canvasContainer = document.getElementById("canvas-container");
 var containerWidth = canvasContainer.offsetWidth;
 var containerHeight = canvasContainer.offsetHeight;
 
-var canvas = new fabric.Canvas("canvas", {
-    isDrawingMode: true,
-    width: containerWidth,
-    height: containerHeight,
-});
-// require('./draw/drawingboard');
-// var canvas = new DrawingBoard.Board('canvas', {
-//     color: 'black',
-//     webStorage: 'local',
-//     background: false
-// });
-
+    var canvas = new fabric.Canvas("canvas", {
+        isDrawingMode: true,
+        width: containerWidth,
+        height: containerHeight,
+    });
+    canvas.freeDrawingBrush.width = 10;
+    canvas.freeDrawingBrush.color = "#13ce66";
+    
+}
+var clearBtn = document.getElementById("clear-canvas");
+if (clearBtn) {
+    clearBtn.onclick = function () {
+        canvas.clear();
+    };
+}
 $("#submit-drawing").on("click", function (e) {
     canvas.backgroundImage = null;
 

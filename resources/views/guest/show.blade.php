@@ -1,9 +1,15 @@
 <x-base-layout>
     <x-slot name="content">
+        <div class="px-4">
         <h1 class="text-2xl font-bold text-white"> Hi {{$guest->name}} 🙋🏻‍♀️ </h1>
-        <p class="text-white">
-            hard facts
-        </p>
+        <div class="max-w-xl my-4 text-white">
+            <p class="mb-4 leading-relaxed">
+            Das <span class="font-black">HANNAPALOOZA</span> feiert das 25. Jubiläum mit einer exklusiven Sonderveranstaltung und du wurdest als Special Act ausgewählt! Die VIP Veranstaltung findet am 28. Mai ab 15 Uhr auf der Donauinsel beim Grillplatz 10 auf der Donauinsel statt. Bei Schlechtwetter wird in der Canisiusgasse 16 im Partykeller gefeiert, das wird rechtzeitig bekannt gegeben.
+            </p>
+            <p>
+                Komm in deinem besten Festival-Outfit und nimm dir etwas Grillbares mit. Ich werde Beilagen sowie Bier und Wein besorgen, bring gerne auch selbst was mit!
+            </p>
+        </div>
         <form method="post" action="/guest/update/{{$guest->id}}" class="text-white" x-data="{coming: {{$guest->coming}}, plus_one : {{$guest->plus_one}}, plus_one_name: '{{$guest->plus_one_name}}'}">
             @csrf
             <div class="my-8">
@@ -26,5 +32,6 @@
             </div>
             <button class="w-full px-6 py-4 my-6 font-bold text-center rounded-lg bg-purple hover:opacity-80 focus:opacity-80" type="submit">Weiter</button>
         </form>
+    </div>
     </x-slot>
 </x-base-layout>

@@ -2,8 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './drawingboard.min.css';
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+body{
+    font-family: "Nunito", cursive;
 
+}
+.lineup {
+    font-family: 'Bebas Neue', cursive;
+}
 .toggle-checkbox:not(:checked) {
     @apply right-0 border-orange focus:border-orange hover:border-orange;
 }
@@ -13,6 +20,6 @@
 .toggle-checkbox:not(:checked) + .toggle-label {
     @apply bg-orange;
 }
-.drawing-board-control-drawingmode-filler-button{
+.drawing-board-control-drawingmode-filler-button {
     @apply hidden;
 }
