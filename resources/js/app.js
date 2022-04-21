@@ -1,29 +1,43 @@
-require('./bootstrap');
-global.$ = global.jQuery = require('jquery');
+require("./bootstrap");
+global.$ = global.jQuery = require("jquery");
 
-require('./draw/drawingboard');
-var canvas = new DrawingBoard.Board('canvas', {
-    color: 'black',
-    webStorage: 'local',
+import { fabric } from "fabric";
+
+var canvasContainer = document.getElementById("canvas-container");
+var containerWidth = canvasContainer.offsetWidth;
+var containerHeight = canvasContainer.offsetHeight;
+
+var canvas = new fabric.Canvas("canvas", {
+    isDrawingMode: true,
+    width: containerWidth,
+    height: containerHeight,
+});
+// require('./draw/drawingboard');
+// var canvas = new DrawingBoard.Board('canvas', {
+//     color: 'black',
+//     webStorage: 'local',
+//     background: false
+// });
+
+$("#submit-drawing").on("click", function (e) {
+    canvas.backgroundImage = null;
+
+    var svg = canvas.toSVG();
+    var doc = new DOMParser();
+    var parsed = doc.parseFromString(svg, "application/xml");
+
+    var svgElement = parsed.documentElement;
+    document.getElementsByTagName("body")[0].append(svgElement);
+
+    var bbox = svgElement.getBBox();
+    var viewBox = [bbox.x, bbox.y, bbox.width, bbox.height].join(" ");
+
+    svgElement.setAttribute("viewBox", viewBox);
+
+    $("input[name=drawing]").val(svgElement.outerHTML);
 });
 
-$('#submit-drawing').on('click', function(e) {
-    //get drawingboard content
-   var img = canvas.getImg();
+import Alpine from "alpinejs";
 
-   //we keep drawingboard content only if it's not the 'blank canvas'
-   var imgInput = (canvas.blankCanvas == img) ? '' : img;
-
-   //put the drawingboard content in the form field to send it to the server
-   $('input[name=drawing]').val( imgInput );
-
-   //we can also assume that everything goes well server-side
-   //and directly clear webstorage here so that the drawing isn't shown again after form submission
-   //but the best would be to do when the server answers that everything went well
-   canvas.clearWebStorage();
- });
-
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine
-Alpine.start()
+window.Alpine = Alpine;
+Alpine.start();
