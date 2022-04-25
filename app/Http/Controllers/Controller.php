@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Storage;
 
 class Controller extends BaseController
 {
@@ -19,6 +20,8 @@ class Controller extends BaseController
     public function index()
     {
         $guests = $this->guestService->getComingGuests();
-        return view('index')->with('guests', $guests);
+        $drawings = Storage::disk('public')->allFiles('drawings');
+
+        return view('index', ['guests' => $guests, 'drawings' => $drawings]);
     }
 }

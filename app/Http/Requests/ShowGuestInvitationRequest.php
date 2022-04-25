@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Rules\NameHash;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ShowGuestInvitationRequest extends FormRequest
@@ -15,7 +14,7 @@ class ShowGuestInvitationRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->guest->exists();
+        return $this->guest->exists(); //&& $this->guest->coming != 1;
     }
 
     /**
@@ -26,7 +25,7 @@ class ShowGuestInvitationRequest extends FormRequest
     public function rules()
     {
         return [
-            'hash' => [new NameHash($this->guest)]
+            'hash' => [new NameHash($this->guest)],
         ];
     }
 }

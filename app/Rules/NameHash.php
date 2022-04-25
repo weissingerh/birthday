@@ -27,7 +27,7 @@ class NameHash implements Rule
      */
     public function passes($attribute, $value)
     {
-        return Hash::check($this->guest->name, $value);
+        return Hash::check($this->guest->last_name, $value);
     }
 
     /**

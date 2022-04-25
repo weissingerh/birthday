@@ -19,6 +19,8 @@
         "tailwindcss": "^3.0.23"
     },
     "dependencies": {
+        "@splidejs/splide": "^4.0.1",
+        "@splidejs/splide-extension-auto-scroll": "^0.4.2",
         "alpinejs": "^3.9.6",
         "fabric": "^5.2.1",
         "jquery": "^3.6.0"
