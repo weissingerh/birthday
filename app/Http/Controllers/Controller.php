@@ -21,7 +21,6 @@ class Controller extends BaseController
     {
         $guests = $this->guestService->getComingGuests();
         $drawings = Storage::disk('public')->allFiles('drawings');
-
-        return view('index', ['guests' => $guests, 'drawings' => $drawings]);
+        return view('index', ['guestNames' => $guests['names'], 'guests' => $guests['guests'], 'drawings' => $drawings]);
     }
 }

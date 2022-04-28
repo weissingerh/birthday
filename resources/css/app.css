@@ -6,10 +6,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
 body {
-    font-family: "Nunito", cursive;
+    font-family: "Nunito", Arial, Helvetica, sans-serif;
 }
 .lineup {
-    font-family: "Bebas Neue", cursive;
+    font-family: "Bebas Neue", Arial, Helvetica, sans-serif;
 }
 .toggle-checkbox:not(:checked) {
     @apply right-0 border-orange focus:border-orange hover:border-orange;

@@ -29,6 +29,12 @@ class GuestService
             }
         });
 
-        return $names;
+        return collect(['names' => $names, 'guests' => $allGuests]);
+    }
+
+    public static function setFileName(Guest $guest): String
+    {
+        $plusOne = $guest->plus_one_name ? "&" . $guest->plus_one_name : "";
+        return "drawings/" . $guest->id . "/" . $guest->name . "_" . substr($guest->last_name, 0, 1) . $plusOne . ".svg";
     }
 }

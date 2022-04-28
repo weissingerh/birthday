@@ -7,7 +7,6 @@
     <main>
         {{ $content }}
     </main>
-    <x-footer></x-footer>
 </body>
 <script src={{ mix('js/app.js') }}></script>
 

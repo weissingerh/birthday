@@ -22,7 +22,6 @@ class GuestController extends Controller
 
     public function update(UpdateGuestRequest $request, Guest $guest)
     {
-        // dd($request);
         $coming = $request->has('coming') ? 1 : 0;
         $plus_one = $request->has('plus_one') && $coming;
         $plus_one_name = $request->has('plus_one_name') && $plus_one ? $request->plus_one_name : null;
@@ -46,7 +45,12 @@ class GuestController extends Controller
     public function saveDrawing(Request $request, Guest $guest)
     {
         $drawing = $request['drawing'];
-        Storage::disk('public')->put('drawings/' . $guest->id . "/test.svg", $drawing);
+        $imgUrl = $this->guestService->setFileName($guest);
+        Storage::disk('public')->put($imgUrl, $drawing);
+
+        $guest->img = $imgUrl;
+        $guest->save();
+
         return redirect()->route('guest.thanks', [$guest->id]);
     }
 
