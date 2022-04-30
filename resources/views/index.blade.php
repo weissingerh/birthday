@@ -53,8 +53,9 @@
                             <ul class="splide__list">
                                 @foreach ($guests as $guest)
                                     @if ($guest->img)
-                                        <li class="py-2 splide__slide">
-                                            <img src="{{ $guest->img }}" alt="drawing" class="mb-2" />
+                                        <li class="p-2 splide__slide">
+                                            <img src="storage/{{ $guest->img }}" alt="drawing"
+                                                class="mb-2" />
                                             <span class="text-lg text-white">{{ $guest->name }}
                                                 {{ $guest->plus_one_name ? ' + ' . $guest->plus_one_name : '' }}
                                             </span>

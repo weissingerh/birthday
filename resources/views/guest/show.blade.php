@@ -32,7 +32,8 @@
                 <div x-show="coming">
                     <div class="my-4">
                         <input name="plus_one" id="plus_one" type="checkbox"
-                            class="border-white rounded-sm form-checkbox text-purple" x-model="plus_one" />
+                            class="border-white rounded-sm form-checkbox text-purple" x-model="plus_one"
+                            @checked($guest->plus_one) />
                         <label for="plus_one" class="text-sm">Ich nehme eine +1 mit<br> <span
                                 class="text-xs leading-tight">PartnerInnen, FreundInnen, GspusInnen und Herzensmenschen
                                 - alle willkommen :)</span></label>
@@ -41,7 +42,24 @@
                         <label class="block text-sm" for="plus_one_name ">Name der +1 (optional, just because I'm
                             nosey)</label>
                         <input type="text" class="text-black rounded-lg form-input" name="plus_one_name"
-                            id="plus_one_name" x-model="plus_one_name" />
+                            id="plus_one_name" x-model="plus_one_name" value="{{ $guest->plus_one_name }}" />
+                    </div>
+                    <div>
+                        <div>
+                            <input class=" text-yellow" type="radio" name="beer" id="beer" value="1"
+                                @checked($guest->beer === 1) />
+                            <label for="beer">ich trinke lieber Bier 🍺</label>
+                        </div>
+                        <div>
+                            <input class="text-green" type="radio" name="beer" id="wine" value="0"
+                                @checked($guest->beer === 0) />
+                            <label for="wine">ich trinke lieber Wein 🍷</label>
+                        </div>
+                        <div>
+                            <input class="text-orange" type="radio" name="beer" id="none" value=""
+                                @checked($guest->beer === null) />
+                            <label for="none">ich trinke garnicht 🧃</label>
+                        </div>
                     </div>
                 </div>
                 <button

@@ -7,16 +7,25 @@ use App\Models\Guest;
 class GuestService
 {
 
-    public static function updateGuest(Guest $guest, $coming, $plus_one, $plus_one_name)
+    public static function updateGuest(Guest $guest, $coming, $plus_one, $plus_one_name, $beer)
     {
-        $guest->update([
-            'coming' => $coming,
-            'plus_one' => $plus_one,
-            'plus_one_name' => $coming && $plus_one ? $plus_one_name : null,
-        ]);
+        if ($beer === '1') {
+            $beer = 1;
+        } else if ($beer === '0') {
+            $beer = 0;
+        } else {
+            $beer = null;
+        }
+
+        $guest->plus_one = $plus_one;
+        $guest->plus_one_name = $coming && $plus_one ? $plus_one_name : null;
+        $guest->coming = $coming;
+        $guest->beer = $beer;
         $guest->save();
+
         return $guest;
     }
+
     public static function getComingGuests()
     {
         $allGuests = Guest::isComing()->get();

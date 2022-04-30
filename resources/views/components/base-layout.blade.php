@@ -1,8 +1,8 @@
 <!doctype html>
-<html class="overflow-x-hidden no-js " lang="de">
+<html class="min-h-screen overflow-x-hidden no-js bg-gradient-to-b from-purple to-orange" lang="de">
 <x-head></x-head>
 
-<body class="relative h-full min-h-screen px-2 md:px-6 bg-gradient-to-b from-purple to-orange">
+<body class="relative h-full px-2 md:px-6">
     <x-nav></x-nav>
     <main>
         {{ $content }}

@@ -27,6 +27,7 @@ class UpdateGuestRequest extends FormRequest
             'coming' => 'nullable',
             'plus_one' => 'nullable',
             'plus_one_name' => 'nullable|string',
+            'beer' => 'nullable',
         ];
     }
 }
