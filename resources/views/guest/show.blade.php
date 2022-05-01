@@ -1,6 +1,6 @@
 <x-base-layout>
     <x-slot name="content">
-        <div class="px-4">
+        <div class="container px-4 mx-auto" x-data="{ coming: {{ $guest->coming ?? 1 }}, plus_one: {{ $guest->plus_one ?? 0 }}, plus_one_name: '{{ $guest->plus_one_name }}' }">
             <h1 class="text-2xl font-bold text-white"> Hi {{ $guest->name }} 🙋🏻‍♀️ </h1>
             <div class="max-w-xl my-4 text-white">
                 <p class="mb-4 leading-relaxed">
@@ -14,8 +14,7 @@
                     Bier und Wein besorgen, bring gerne auch selbst was mit!
                 </p>
             </div>
-            <form method="post" action="/guest/update/{{ $guest->id }}" class="text-white"
-                x-data="{ coming: {{ $guest->coming ?? 1 }}, plus_one: {{ $guest->plus_one ?? 0 }}, plus_one_name: '{{ $guest->plus_one_name }}' }">
+            <form method="post" action="/guest/update/{{ $guest->id }}" class="text-white">
                 @csrf
                 <div class="my-8">
                     <label for="coming" class="text-sm text-white">Ja, ich komme zur Feier! </label>
@@ -62,9 +61,16 @@
                         </div>
                     </div>
                 </div>
-                <button
-                    class="w-full px-6 py-4 my-6 font-bold text-center rounded-lg bg-purple hover:opacity-80 focus:opacity-80"
-                    type="submit">Weiter</button>
+                <div class="md:flex md:space-x-6">
+                    <button
+                        class="w-full px-6 py-4 my-2 mt-6 font-bold text-center rounded-lg md:w-1/2 bg-purple hover:opacity-80 focus:opacity-80"
+                        type="submit">Weiter</button>
+                    @if ($guest->coming != null)
+                        <a class="inline-block w-full px-6 py-4 my-2 font-bold text-center text-white rounded-lg md:w-1/2 bg-blue hover:opacity-80 focus:opacity-80"
+                            href="/">direkt zur
+                            Startseite</a>
+                    @endif
+                </div>
             </form>
         </div>
     </x-slot>
