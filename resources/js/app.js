@@ -33,9 +33,20 @@ if (document.getElementById("canvas-container")) {
     canvas.freeDrawingBrush.color = "#13ce66";
 }
 var clearBtn = document.getElementById("clear-canvas");
-if (clearBtn) {
+var undoBtn = document.getElementById("undo-canvas");
+
+if (clearBtn || undoBtn) {
     clearBtn.onclick = function () {
         canvas.clear();
+    };
+    undoBtn.onclick = function () {
+        var lastItemIndex = canvas.getObjects().length - 1;
+        var item = canvas.item(lastItemIndex);
+
+        if (item.get("type") === "path") {
+            canvas.remove(item);
+            canvas.renderAll();
+        }
     };
 }
 $("#submit-drawing").on("click", function (e) {

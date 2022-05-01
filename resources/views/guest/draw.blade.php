@@ -14,6 +14,8 @@
             @csrf
             <button type="reset" id="clear-canvas"
                 class="px-4 my-2 text-white rounded-lg cursor-pointer bg-pink">reset</button>
+            <span id="undo-canvas" class="px-4 my-2 text-white rounded-lg cursor-pointer bg-blue">undo</span>
+
             <div id="canvas-container" class="h-[450px] mb-10 bg-white rounded-lg">
                 <canvas id="canvas" class="w-full h-full"></canvas>
                 <input type="hidden" name="drawing">
