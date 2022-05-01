@@ -31,7 +31,7 @@
                     <button id="submit-drawing"
                         class="w-full px-6 py-4 my-2 font-bold text-center text-white rounded-lg bg-purple hover:opacity-80 focus:opacity-80">Weiter</button>
                     @if ($guest->img)
-                        <a class="inline-block w-full px-6 py-4 my-2 font-bold text-center text-white rounded-lg md:w-1/2 bg-blue hover:opacity-80 focus:opacity-80"
+                        <a class="inline-block w-full px-6 py-4 my-2 font-bold text-center text-white rounded-lg h-14 md:w-1/2 bg-blue hover:opacity-80 focus:opacity-80"
                             href="/">direkt zur
                             Startseite</a>
                     @endif

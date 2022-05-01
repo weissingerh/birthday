@@ -28,7 +28,7 @@ class GuestService
 
     public static function getComingGuests()
     {
-        $allGuests = Guest::isComing()->get();
+        $allGuests = Guest::isComing()->orderBy('updated_at')->get();
         $names = collect();
 
         $allGuests->map(function ($guest) use ($names) {
