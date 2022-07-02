@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [Controller::class, 'index'])->name('index');
 
 Route::prefix('guest')->group(function () {
-    Route::get('{guest}', [GuestController::class, 'show']);
+    Route::get('{guest}', [GuestController::class, 'show'])->name('guest.show');
     Route::post('update/{guest}', [GuestController::class, 'update']);
 
     Route::get('sad/{guest}', [GuestController::class, 'notComing'])->name('guest.notcoming');

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('plus_one_name')->nullable();
             $table->boolean('plus_one');
             $table->boolean('coming')->nullable();
-            $table->text('alcohol');
+            $table->bool('beer');
             $table->timestamps();
         });
     }
