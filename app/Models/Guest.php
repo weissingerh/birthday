@@ -18,6 +18,12 @@ class Guest extends Model
         'alcohol',
     ];
 
+    public const foodChoices = [
+        'vegetarian',
+        'vegan',
+        'meat',
+    ];
+
     public function scopeIsComing($query)
     {
         $query->where('coming', 1);
