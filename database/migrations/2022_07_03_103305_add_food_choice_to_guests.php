@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Guest;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +15,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('guests', function (Blueprint $table) {
-            $table->boolean('beer')->nullable();
+            $table->enum('food_choice', Guest::foodChoices);
+            $table->text('food_notes');
         });
     }
 
@@ -26,8 +28,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('guests', function (Blueprint $table) {
-            $table->dropColumn('beer');
-            $table->text('alcohol');
+            $table->dropColumn('food_choice');
+            $table->dropColumn('food_notes');
         });
     }
 };
