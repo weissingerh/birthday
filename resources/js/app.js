@@ -6,7 +6,7 @@ import { fabric } from "fabric";
 import { Splide } from "@splidejs/splide";
 import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
 import "@splidejs/splide/css";
-
+require("./flapper.js");
 document.addEventListener("DOMContentLoaded", function () {
     if (document.getElementById("splide")) {
         new Splide("#splide", {
@@ -30,7 +30,7 @@ if (document.getElementById("canvas-container")) {
         height: containerHeight,
     });
     canvas.freeDrawingBrush.width = 10;
-    canvas.freeDrawingBrush.color = "#13ce66";
+    canvas.freeDrawingBrush.color = "#ffffff";
 }
 var clearBtn = document.getElementById("clear-canvas");
 var undoBtn = document.getElementById("undo-canvas");
@@ -60,12 +60,29 @@ $("#submit-drawing").on("click", function (e) {
     document.getElementsByTagName("body")[0].append(svgElement);
 
     var bbox = svgElement.getBBox();
-    var viewBox = [bbox.x, bbox.y, bbox.width, bbox.height].join(" ");
+    var viewBox = [
+        bbox.x - 20,
+        bbox.y - 10,
+        bbox.width + 30,
+        bbox.height + 20,
+    ].join(" ");
 
     svgElement.setAttribute("viewBox", viewBox);
 
     $("input[name=drawing]").val(svgElement.outerHTML);
 });
+if ($(".flapper")) {
+    var flappers = global.$(".flapper");
+
+    var options = {
+        align: "left",
+        width: 10, // number of digits
+    };
+
+    flappers.each(function (flapper) {
+        $(this).flapper(options).val(this.id).change();
+    });
+}
 
 import Alpine from "alpinejs";
 

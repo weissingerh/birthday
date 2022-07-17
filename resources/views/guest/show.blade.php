@@ -1,24 +1,23 @@
 <x-base-layout>
     <x-slot name="content">
         <div class="container px-4 mx-auto">
-            <h1 class="text-2xl font-bold text-white"> Hi {{ $guest->name }} 🙋🏻‍♀️ </h1>
-            <div class="max-w-xl my-4 text-white">
+            <h1 class="text-2xl font-bold "> Hi {{ $guest->name }} 🙋🏻‍♂️ </h1>
+            <div class="max-w-xl my-4">
                 <p class="mb-4 leading-relaxed">
-                    Das <span class="font-black">HANNAPALOOZA</span> feiert das 25. Jubiläum mit einer exklusiven
-                    Sonderveranstaltung und du wurdest als Special Act ausgewählt! Die VIP Veranstaltung findet am 28.
-                    Mai ab 15 Uhr auf der Donauinsel beim Grillplatz 10 auf der Donauinsel statt. Bei Schlechtwetter
-                    wird in der Canisiusgasse 16 im Partykeller gefeiert, das wird rechtzeitig bekannt gegeben.
-                </p>
-                <p>
-                    Komm in deinem besten Festival-Outfit und nimm dir etwas Grillbares mit. Ich werde Beilagen sowie
-                    Bier und Wein besorgen, bring gerne auch selbst was mit!
+                    Die Urlaubssaison ist in vollem Gange und ich möchte euch am <strong>13. August</strong> zu einem
+                    Abend im 5-Sterne
+                    <strong>Clubresort An der Haid 7 </strong> einladen. Ab <strong>19 Uhr </strong> coole Drinks und
+                    ein gegrilltes
+                    Menü auf euch,
+                    bitte lasst mich über das Formular wissen wie ihr euch am liebsten ernährt.
+                    Ihr könnt euch gerne dem Anlass entsprechend kleiden mit: Sandalen und Socken, Hawaiihemd, Kamera,
+                    Sonnenhut usw…
                 </p>
             </div>
-            <form method="post" action="/guest/update/{{ $guest->id }}" class="text-white"
-                x-data="{ coming: {{ $guest->coming ?? 1 }}, plus_one: {{ $guest->plus_one ?? 0 }}, plus_one_name: '{{ $guest->plus_one_name }}' }">
+            <form method="post" action="/guest/update/{{ $guest->id }}" x-data="{ coming: {{ $guest->coming ?? 1 }}, plus_one: {{ $guest->plus_one ?? 0 }}, plus_one_name: '{{ $guest->plus_one_name }}' }">
                 @csrf
                 <div class="my-8">
-                    <label for="coming" class="text-sm text-white">Ja, ich komme zur Feier! </label>
+                    <label for="coming" class="text-sm">Ja, ich komme zur Feier! </label>
                     <div
                         class="relative inline-block w-20 mr-2 align-middle transition duration-200 ease-in select-none">
                         <input type="checkbox" name="coming" id="coming"
@@ -27,7 +26,7 @@
                         <label for="coming"
                             class="block h-8 overflow-hidden rounded-full cursor-pointer bg-green toggle-label"></label>
                     </div>
-                    <label for="coming" class="text-sm text-white">Nein, ich komme nicht 👹</label>
+                    <label for="coming" class="text-sm">Nein, ich komme nicht 👹</label>
                 </div>
                 <div x-show="coming">
                     <div class="my-4">
@@ -39,35 +38,39 @@
                                 - alle willkommen :)</span></label>
                     </div>
                     <div class="my-4" x-show="plus_one">
-                        <label class="block text-sm" for="plus_one_name ">Name der +1 (optional, just because I'm
-                            nosey)</label>
-                        <input type="text" class="text-black rounded-lg form-input" name="plus_one_name"
+                        <label class="block text-sm" for="plus_one_name">Name der +1</label>
+                        <input type="text" class="text-black border-white rounded-lg form-input" name="plus_one_name"
                             id="plus_one_name" x-model="plus_one_name" value="{{ $guest->plus_one_name }}" />
                     </div>
                     <div>
                         <div>
-                            <input class=" text-yellow" type="radio" name="beer" id="beer" value="1"
-                                @checked($guest->beer === 1) />
-                            <label for="beer">ich trinke lieber Bier 🍺</label>
+                            <input class="text-red" type="radio" name="food_choice" id="meat" value="meat"
+                                @checked($guest->food_choice === 'meat') />
+                            <label for="meat">ich esse Fleisch</label>
                         </div>
                         <div>
-                            <input class="text-green" type="radio" name="beer" id="wine" value="0"
-                                @checked($guest->beer === 0) />
-                            <label for="wine">ich trinke lieber Wein 🍷</label>
+                            <input class="text-green" type="radio" name="food_choice" id="vegetarian"
+                                value="vegetarian" @checked($guest->food_choice === 'vegetarian') />
+                            <label for="vegetarian">ich esse vegetarisch</label>
                         </div>
                         <div>
-                            <input class="text-orange" type="radio" name="beer" id="none" value=""
-                                @checked($guest->beer === null) />
-                            <label for="none">ich trinke garnicht 🧃</label>
+                            <input class=" text-green ring-green" type="radio" name="food_choice" id="vegan"
+                                value="vegan" @checked($guest->food_choice === 'vegan') />
+                            <label for="vegan">ich ernähre mich vegan</label>
                         </div>
+                    </div>
+                    <div class="my-4">
+                        <label class="block mb-2" for="food_notes">Wünsche / Anmerkungen zu Essen</label>
+                        <textarea name="food_notes" value="{{ $guest->food_notes }}" cols="30" rows="10"
+                            class="w-full text-black border-white rounded-lg"></textarea>
                     </div>
                 </div>
                 <div class="my-2 md:flex md:space-x-6">
                     <button
-                        class="w-full px-6 py-4 my-2 mt-6 font-bold text-center rounded-lg md:mt-0 md:w-1/2 bg-purple hover:opacity-80 focus:opacity-80"
+                        class="w-full px-6 py-4 my-2 mt-6 font-medium text-center rounded-lg md:mt-0 md:w-1/2 bg-green hover:opacity-80 focus:opacity-80"
                         type="submit">Weiter</button>
                     @if ($guest->coming != null)
-                        <a class="inline-block w-full px-6 py-4 my-2 mt-0 font-bold text-center text-white rounded-lg h-14 md:w-1/2 bg-blue hover:opacity-80 focus:opacity-80"
+                        <a class="inline-block w-full px-6 py-4 my-2 mt-0 text-center text-white rounded-lg h-14 md:w-1/2 bg-blue hover:opacity-80 focus:opacity-80"
                             href="/">direkt zur
                             Startseite</a>
                     @endif

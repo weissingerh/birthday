@@ -9360,6 +9360,9 @@ __webpack_require__.g.$ = __webpack_require__.g.jQuery = __webpack_require__(/*!
 
 
 
+
+__webpack_require__(/*! ./flapper.js */ "./resources/js/flapper.js");
+
 document.addEventListener("DOMContentLoaded", function () {
   if (document.getElementById("splide")) {
     new _splidejs_splide__WEBPACK_IMPORTED_MODULE_1__.Splide("#splide", {
@@ -9384,14 +9387,25 @@ if (document.getElementById("canvas-container")) {
     height: containerHeight
   });
   canvas.freeDrawingBrush.width = 10;
-  canvas.freeDrawingBrush.color = "#13ce66";
+  canvas.freeDrawingBrush.color = "#ffffff";
 }
 
 var clearBtn = document.getElementById("clear-canvas");
+var undoBtn = document.getElementById("undo-canvas");
 
-if (clearBtn) {
+if (clearBtn || undoBtn) {
   clearBtn.onclick = function () {
     canvas.clear();
+  };
+
+  undoBtn.onclick = function () {
+    var lastItemIndex = canvas.getObjects().length - 1;
+    var item = canvas.item(lastItemIndex);
+
+    if (item.get("type") === "path") {
+      canvas.remove(item);
+      canvas.renderAll();
+    }
   };
 }
 
@@ -9403,10 +9417,23 @@ $("#submit-drawing").on("click", function (e) {
   var svgElement = parsed.documentElement;
   document.getElementsByTagName("body")[0].append(svgElement);
   var bbox = svgElement.getBBox();
-  var viewBox = [bbox.x, bbox.y, bbox.width, bbox.height].join(" ");
+  var viewBox = [bbox.x - 20, bbox.y - 10, bbox.width + 30, bbox.height + 20].join(" ");
   svgElement.setAttribute("viewBox", viewBox);
   $("input[name=drawing]").val(svgElement.outerHTML);
 });
+
+if ($(".flapper")) {
+  var flappers = __webpack_require__.g.$(".flapper");
+  var options = {
+    align: "left",
+    width: 10 // number of digits
+
+  };
+  flappers.each(function (flapper) {
+    $(this).flapper(options).val(this.id).change();
+  });
+}
+
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_4__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_4__["default"].start();
@@ -9441,6 +9468,290 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/flapper.js":
+/*!*********************************!*\
+  !*** ./resources/js/flapper.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+$ = __webpack_require__.g.$;
+
+(function ($) {
+  var Flapper = function Flapper($ele, options) {
+    var _this = this;
+
+    this.id = Math.floor(Math.random() * 1000) + 1;
+    this.$ele = $ele;
+    this.options = $.extend({}, this.defaults, options); // is transform loaded?
+
+    this.options.transform = this.options.transform && $.transform;
+    this.$div = $("<div></div>");
+    this.$div.attr("class", "flapper " + this.$ele.attr("class"));
+    this.$ele.hide().after(this.$div);
+    this.$ele.bind("change.flapper", function () {
+      _this.update();
+    });
+    this.init();
+  };
+
+  Flapper.prototype = {
+    defaults: {
+      width: 6,
+      format: null,
+      align: "right",
+      padding: " ",
+      chars: null,
+      chars_preset: "num",
+      timing: 250,
+      min_timing: 10,
+      threshhold: 100,
+      transform: true,
+      on_anim_start: null,
+      on_anim_end: null,
+      cycleInterval: null
+    },
+    init: function init() {
+      var _this = this;
+
+      this.digits = [];
+
+      for (i = 0; i < this.options.width; i++) {
+        this.digits[i] = new FlapDigit(null, this.options);
+        this.$div.append(this.digits[i].$ele);
+      }
+
+      this.$div.on("digitAnimEnd", function (e) {
+        _this.onDigitAnimEnd(e);
+      });
+
+      if (this.options.on_anim_start) {
+        this.$div.on("animStart", this.options.on_anim_start);
+      }
+
+      if (this.options.on_anim_end) {
+        this.$div.on("animEnd", this.options.on_anim_end);
+      }
+
+      this.update();
+
+      if (this.options.cycleInterval) {
+        this.startCycle();
+      }
+    },
+    update: function update() {
+      var value = this.$ele.val().replace(/[\s|\u00a0]/g, " ");
+      var digits = this.getDigits(value);
+      this.digitsFinished = 0;
+      this.$div.trigger("animStart");
+
+      for (var i = 0; i < this.digits.length; i++) {
+        this.digits[i].goToChar(digits[i]);
+      }
+    },
+    onDigitAnimEnd: function onDigitAnimEnd(e) {
+      this.digitsFinished++;
+
+      if (this.digitsFinished == this.options.width) {
+        this.$div.trigger("animEnd");
+      }
+    },
+    getDigits: function getDigits(val, length) {
+      var strval = val + "";
+
+      if (this.options.format) {
+        strval = $.formatNumber(val, this.options.format);
+      }
+
+      var digits = strval.split("");
+
+      if (digits.length < this.options.width) {
+        while (digits.length < this.options.width) {
+          if (this.options.align == "left") {
+            digits.push(this.options.padding);
+          } else {
+            digits.unshift(this.options.padding);
+          }
+        }
+      } else if (digits.length > this.options.width) {
+        var overage = digits.length - this.options.width;
+
+        if (this.options.align == "left") {
+          digits.splice(-1, overage);
+        } else {
+          digits.splice(0, overage);
+        }
+      }
+
+      return digits;
+    },
+    startCycle: function startCycle() {
+      var self = this;
+      setInterval(function () {
+        for (var i = 0; i < self.digits.length; i++) {
+          self.digits[i].goToNextPosition();
+        }
+      }, this.options.cycleInterval);
+    }
+  };
+
+  FlapDigit = function FlapDigit($ele, opts) {
+    this.options = opts;
+
+    if (!this.options.chars) {
+      this.options.chars = this.presets[this.options.chars_preset];
+    }
+
+    this.pos = 0;
+    this.timeout;
+
+    if (!$ele) {
+      this.$ele = $(this.htmlTemplate);
+    } else {
+      this.$ele = $ele;
+    }
+
+    this.$prev = this.$ele.find(".front.top, .back.bottom");
+    this.$next = this.$ele.find(".back.top, .front.bottom");
+    this.$back_top = this.$ele.find(".back.top");
+    this.$back_bottom = this.$ele.find(".back.bottom");
+    this.$front_top = this.$ele.find(".front.top");
+    this.$front_bottom = this.$ele.find(".front.bottom");
+    this.initialize();
+  };
+
+  FlapDigit.prototype = {
+    presets: {
+      num: [" ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+      hexnum: [" ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "0"],
+      alpha: [" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
+      alphanum: [" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+    },
+    initialize: function initialize() {
+      this.$prev.html(this.options.chars[0]);
+      this.$next.html(this.options.chars[0]);
+    },
+    htmlTemplate: '<div class="digit"><div class="back top">&nbsp;</div>' + '<div class="back bottom">&nbsp;</div>' + '<div class="front top">&nbsp;</div>' + '<div class="front bottom">&nbsp;</div></div>',
+    increment: function increment(speed) {
+      var next = this.pos + 1;
+
+      if (next >= this.options.chars.length) {
+        next = 0;
+      }
+
+      this.$prev.html(this.options.chars[this.pos]).show();
+      this.$front_bottom.hide();
+      this.$next.html(this.options.chars[next]);
+      var speed1 = Math.floor(Math.random() * speed * 0.4 + speed * 0.3);
+      var speed2 = Math.floor(Math.random() * speed * 0.1 + speed * 0.2);
+
+      if (speed >= this.options.threshhold) {
+        if (this.options.transform) {
+          this.animateSlow(speed1, speed2);
+        } else {
+          this.animateFast(speed1, speed2);
+        }
+      }
+
+      this.pos = next;
+    },
+    animateSlow: function animateSlow(speed1, speed2) {
+      var _this = this;
+
+      this.$back_top.show();
+      this.$front_bottom.transform({
+        scaleY: 0.0
+      });
+      this.$front_top.transform({
+        scaleY: 1.0
+      }).stop().show().animate({
+        scaleY: 0.0
+      }, speed1, "swing", function () {
+        _this.$front_bottom.stop().show().animate({
+          scaleY: 1.0
+        }, speed2, "linear");
+
+        _this.$front_top.hide().transform({
+          scaleY: 1.0
+        });
+      });
+    },
+    animateFast: function animateFast(speed1, speed2) {
+      var _this = this;
+
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+      }
+
+      this.timeout = setTimeout(function () {
+        _this.$front_top.hide();
+
+        _this.timeout = setTimeout(function () {
+          _this.$front_bottom.show();
+        }, speed2);
+      }, speed1);
+    },
+    goToPosition: function goToPosition(pos) {
+      var _this = this;
+
+      var frameFunc = function frameFunc() {
+        if (_this.timing_timer) {
+          clearInterval(_this.timing_timer);
+          _this.timing_timer = null;
+        }
+
+        var distance = pos - _this.pos;
+
+        if (distance < 0) {
+          distance += _this.options.chars.length;
+        }
+
+        if (_this.pos == pos) {
+          clearInterval(_this.timing_timer);
+          _this.timing_timer = null;
+
+          _this.$ele.trigger("digitAnimEnd");
+        } else {
+          var duration = Math.floor((_this.options.timing - _this.options.min_timing) / distance + _this.options.min_timing);
+
+          _this.increment(duration);
+
+          _this.timing_timer = setTimeout(frameFunc, duration);
+        }
+      };
+
+      frameFunc();
+    },
+    goToNextPosition: function goToNextPosition() {
+      var next = this.pos + 1;
+
+      if (next >= this.options.chars.length) {
+        next = 0;
+      }
+
+      this.goToPosition(next);
+    },
+    goToChar: function goToChar(c) {
+      var pos = $.inArray(c, this.options.chars);
+
+      if (pos == -1) {
+        this.options.chars.push(c);
+        pos = this.options.chars.length - 1;
+      }
+
+      this.goToPosition(pos);
+    }
+  };
+
+  $.fn.flapper = function (options) {
+    this.each(function () {
+      new Flapper($(this), options);
+    });
+    return this;
+  };
+})(jQuery);
 
 /***/ }),
 

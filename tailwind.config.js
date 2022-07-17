@@ -1,13 +1,15 @@
 module.exports = {
     content: [
-        './storage/framework/views/*.php',
-        './resources/**/*.blade.php',
-        './resources/**/*.js',
-        './resources/**/*.vue',
+        "./storage/framework/views/*.php",
+        "./resources/**/*.blade.php",
+        "./resources/**/*.js",
+        "./resources/**/*.vue",
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
     ],
     theme: {
         colors: {
+            lightblue: "#B7D0D3",
+            lavender: "#C7CAD2",
             blue: "#1fb6ff",
             purple: "#7e5bef",
             pink: "#ff49db",
@@ -17,8 +19,9 @@ module.exports = {
             "gray-dark": "#273444",
             gray: "#8492a6",
             "gray-light": "#d3dce6",
-            white: 'white',
-            black: 'black'
+            white: "white",
+            black: "black",
+            red: "#B91C1C",
         },
         fontFamily: {
             sans: ["Graphik", "sans-serif"],
@@ -34,7 +37,5 @@ module.exports = {
             },
         },
     },
-    plugins: [
-        require('@tailwindcss/forms'),
-    ],
+    plugins: [require("@tailwindcss/forms")],
 };

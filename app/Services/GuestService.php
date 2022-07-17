@@ -7,7 +7,7 @@ use App\Models\Guest;
 class GuestService
 {
 
-    public static function updateGuest(Guest $guest, $coming, $plus_one, $plus_one_name, $beer)
+    public static function updateGuest(Guest $guest, $coming, $plus_one, $plus_one_name, $beer, $food_choice, $food_notes)
     {
         if ($beer === '1') {
             $beer = 1;
@@ -21,6 +21,8 @@ class GuestService
         $guest->plus_one_name = $coming && $plus_one ? $plus_one_name : null;
         $guest->coming = $coming;
         $guest->beer = $beer;
+        $guest->food_choice = $food_choice;
+        $guest->food_notes = $food_notes;
         $guest->save();
 
         return $guest;

@@ -15,8 +15,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('guests', function (Blueprint $table) {
-            $table->enum('food_choice', Guest::foodChoices);
-            $table->text('food_notes');
+            $table->enum('food_choice', Guest::foodChoices)->nullable();
+            $table->text('food_notes')->nullable();
         });
     }
 

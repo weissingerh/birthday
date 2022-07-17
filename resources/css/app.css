@@ -4,6 +4,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("./flapper.css");
 
 body {
     font-family: "Nunito", Arial, Helvetica, sans-serif;
@@ -22,4 +23,16 @@ body {
 }
 .drawing-board-control-drawingmode-filler-button {
     @apply hidden;
+}
+.form .form-input {
+    @apply rounded-lg;
+}
+.form label {
+    @apply block text-sm opacity-80;
+}
+.btn {
+    @apply px-6 py-3 my-2 text-center rounded-lg hover:opacity-80 focus:opacity-80;
+}
+.flapper {
+    @apply uppercase lineup;
 }
