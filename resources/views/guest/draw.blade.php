@@ -18,9 +18,9 @@
             @endif
             <form method="post" class="drawing-form" action="{{ route('guest.draw.save', $guest) }}">
                 @csrf
-                <button type="reset" id="clear-canvas"
-                    class="px-4 my-2 rounded-lg cursor-pointer bg-pink">rückgängig</button>
-                <span id="undo-canvas" class="px-4 my-2 rounded-lg cursor-pointer bg-blue">von vorne beginnen</span>
+                <button type="reset" id="clear-canvas" class="px-4 my-2 rounded-lg cursor-pointer bg-pink">alles
+                    löschen</button>
+                <span id="undo-canvas" class="px-4 my-2 rounded-lg cursor-pointer bg-blue">rückgängig</span>
 
                 <div id="canvas-container"
                     class="my-4 mx-auto w-full max-w-[450px] h-[600px] mb-10 bg-[#78716C] rounded-lg">
