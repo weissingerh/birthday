@@ -20,7 +20,12 @@ class Controller extends BaseController
     public function index()
     {
         $guests = $this->guestService->getComingGuests();
+        $guestCount = $this->guestService->countComing();
         $drawings = Storage::disk('public')->allFiles('drawings');
-        return view('index', ['guestNames' => $guests['names'], 'guests' => $guests['guests'], 'drawings' => $drawings]);
+        return view('index', [
+            'guestCount' => $guestCount,
+            'guestNames' => $guests['names'],
+            'guests' => $guests['guests'],
+            'drawings' => $drawings]);
     }
 }

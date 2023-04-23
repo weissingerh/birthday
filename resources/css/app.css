@@ -2,23 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url(https://fonts.bunny.net/css?family=albert-sans:400,400i,600);
 
 body {
-    font-family: "Nunito", Arial, Helvetica, sans-serif;
-}
-.lineup {
-    font-family: "Bebas Neue", Arial, Helvetica, sans-serif;
+    font-family: 'Albert Sans', Arial, Helvetica, sans-serif;
 }
 .toggle-checkbox:not(:checked) {
-    @apply right-0 border-orange focus:border-orange hover:border-orange;
+    @apply right-0 border-fourthy focus:border-fourthy hover:border-fourthy;
 }
 .toggle-checkbox:checked {
-    @apply border-green focus:border-green hover:border-green;
+    @apply border-fifthy focus:border-fifthy hover:border-fifthy;
 }
 .toggle-checkbox:not(:checked) + .toggle-label {
-    @apply bg-orange;
+    @apply bg-fourthy;
 }
 .drawing-board-control-drawingmode-filler-button {
     @apply hidden;

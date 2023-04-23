@@ -9384,14 +9384,25 @@ if (document.getElementById("canvas-container")) {
     height: containerHeight
   });
   canvas.freeDrawingBrush.width = 10;
-  canvas.freeDrawingBrush.color = "#13ce66";
+  canvas.freeDrawingBrush.color = "#BE7154";
 }
 
 var clearBtn = document.getElementById("clear-canvas");
+var undoBtn = document.getElementById("undo-canvas");
 
-if (clearBtn) {
+if (clearBtn || undoBtn) {
   clearBtn.onclick = function () {
     canvas.clear();
+  };
+
+  undoBtn.onclick = function () {
+    var lastItemIndex = canvas.getObjects().length - 1;
+    var item = canvas.item(lastItemIndex);
+
+    if (item.get("type") === "path") {
+      canvas.remove(item);
+      canvas.renderAll();
+    }
   };
 }
 

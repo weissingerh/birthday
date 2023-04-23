@@ -6,7 +6,7 @@
                 Schade, dass du nicht kommen kannst. Sollte sich was bei dir ändern, kannst du über den
                 selben Link jederzeit angeben, dass du doch kommst!
             </p>
-            <a class="inline-block w-full max-w-sm px-10 py-4 mx-auto font-bold text-center text-white rounded-lg bg-blue"
+            <a class="inline-block w-full max-w-sm px-10 py-4 mx-auto font-bold text-center text-white rounded-lg bg-primary"
                 href="/">zur
                 Startseite</a>
         </div>

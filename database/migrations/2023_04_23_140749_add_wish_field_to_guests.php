@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('guests', function (Blueprint $table) {
-            $table->boolean('beer')->nullable();
+            $table->text('wish');
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('guests', function (Blueprint $table) {
-            $table->dropColumn('beer');
+            $table->dropColumn('wish');
         });
     }
 };

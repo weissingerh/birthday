@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="min-h-screen overflow-x-hidden no-js bg-gradient-to-b from-purple to-orange" lang="de">
+<html class="min-h-screen overflow-x-hidden no-js bg-primary from-secondary to-fourthy" lang="de">
 <x-head></x-head>
 
 <body class="relative h-full px-2 md:px-6">

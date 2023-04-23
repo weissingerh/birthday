@@ -25,7 +25,9 @@ class GuestController extends Controller
         $coming = $request->has('coming') ? 1 : 0;
         $plus_one = $request->has('plus_one') && $coming;
         $plus_one_name = $request->has('plus_one_name') && $plus_one ? $request->plus_one_name : null;
-        $savedGuest = $this->guestService->updateGuest($guest, $coming, $plus_one, $plus_one_name, $request->beer);
+        $wish = $request->has('wish') ? $request->wish : null;
+
+        $savedGuest = $this->guestService->updateGuest($guest, $coming, $plus_one, $plus_one_name, $request->beer, $wish);
 
         if ($savedGuest->coming == 1) {
             return redirect()->route('guest.draw', [$guest->id]);

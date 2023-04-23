@@ -7,7 +7,7 @@ use App\Models\Guest;
 class GuestService
 {
 
-    public static function updateGuest(Guest $guest, $coming, $plus_one, $plus_one_name, $beer)
+    public static function updateGuest(Guest $guest, $coming, $plus_one, $plus_one_name, $beer, $wish)
     {
         if ($beer === '1') {
             $beer = 1;
@@ -21,6 +21,7 @@ class GuestService
         $guest->plus_one_name = $coming && $plus_one ? $plus_one_name : null;
         $guest->coming = $coming;
         $guest->beer = $beer;
+        $guest->wish = $wish;
         $guest->save();
 
         return $guest;
@@ -41,6 +42,9 @@ class GuestService
         return collect(['names' => $names, 'guests' => $allGuests]);
     }
 
+    public static function countComing(): int{
+        return Guest::isComing()->count() + 1;
+    }
     public static function setFileName(Guest $guest): String
     {
         $plusOne = $guest->plus_one_name ? "&" . $guest->plus_one_name : "";

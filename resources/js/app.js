@@ -30,7 +30,7 @@ if (document.getElementById("canvas-container")) {
         height: containerHeight,
     });
     canvas.freeDrawingBrush.width = 10;
-    canvas.freeDrawingBrush.color = "#13ce66";
+    canvas.freeDrawingBrush.color = "#BE7154";
 }
 var clearBtn = document.getElementById("clear-canvas");
 var undoBtn = document.getElementById("undo-canvas");
