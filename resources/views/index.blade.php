@@ -4,7 +4,7 @@
             <h1 class="text-5xl font-bold text-center uppercase text-tertiary">Hanna vs. Wild</h1>
             <div class="w-full mx-auto my-8 text-3xl text-center md:text-5xl lineup">
                 <div class="my-4 text-xl text-center md:text-2xl text-fifthy">
-                    <span>Donnerstag, 18. Mai 2023</span> 🔥
+                    <a class="underline" href="/myevents.ics">Donnerstag, 18. Mai 2023</a> 🔥
                     <a class="underline" href="https://goo.gl/maps/UgcAz1Kr1FmfBGCC9" target="_blank">48.251798,
                         16.383444</a>
                 </div>

@@ -42,8 +42,11 @@ class GuestService
         return collect(['names' => $names, 'guests' => $allGuests]);
     }
 
-    public static function countComing(): int{
-        return Guest::isComing()->count() + 1;
+    public static function countComing(): int {
+        $countGuests = Guest::isComing()->count();
+        $countPlusOne = Guest::isComing()->where('plus_one', true)->count();
+
+        return $countGuests + $countPlusOne + 1;
     }
     public static function setFileName(Guest $guest): String
     {

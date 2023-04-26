@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', [Controller::class, 'index'])->name('index');
+Route::get('$2y$10$2Fg3xK6T2qS2YNbx8j1uYOvvStwhfABFMto5Ei10IZDwiPkoxjUNe', [Controller::class, 'admin'])->name('admin');
 
 Route::prefix('guest')->group(function () {
     Route::get('{guest}', [GuestController::class, 'show'])->name('guest.show');
